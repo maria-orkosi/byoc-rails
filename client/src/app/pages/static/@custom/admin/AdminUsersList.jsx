@@ -31,6 +31,7 @@ export default function AdminUsersList() {
   const [sort, setSort] = useState("created_at");
   const [direction, setDirection] = useState("desc");
   const [page, setPage] = useState(1);
+  const [includeDeactivated, setIncludeDeactivated] = useState(false);
   const [adminToken, setAdminToken] = useState("");
   const [authorized, setAuthorized] = useState(false);
 
@@ -47,6 +48,7 @@ export default function AdminUsersList() {
 
     try {
       const params = new URLSearchParams({ sort, direction, page: String(page) });
+      if (includeDeactivated) params.set("include_deactivated", "true");
       const response = await fetch(`/api/admin/users?${params}`, {
         headers: { "X-Admin-Token": adminToken, "Content-Type": "application/json" }
       });
@@ -72,7 +74,7 @@ export default function AdminUsersList() {
     } finally {
       setLoading(false);
     }
-  }, [adminToken, sort, direction, page]);
+  }, [adminToken, sort, direction, page, includeDeactivated]);
 
   useEffect(() => { fetchUsers(); }, [fetchUsers]);
 
@@ -131,6 +133,19 @@ return (
         <h1 className="mb-6 text-2xl font-semibold text-brand-text">{content.heading}</h1>
 
         {error && <p className="mb-4 text-sm text-destructive">{error}</p>}
+
+        <div className="mb-4 flex items-center gap-2">
+          <Input
+            type="checkbox"
+            id="includeDeactivated"
+            checked={includeDeactivated}
+            onChange={(e) => { setIncludeDeactivated(e.target.checked); setPage(1); }}
+            className="h-4 w-4 rounded border-brand-border"
+          />
+          <label htmlFor="includeDeactivated" className="text-sm text-brand-text">
+            {content.includeDeactivatedLabel || "Include deactivated users"}
+          </label>
+        </div>
 
         {loading ? (
           <p className="text-brand-text-muted">{content.messages.loading}</p>
