@@ -1,0 +1,56 @@
+{
+  "heading": "User Management",
+  "columns": {
+    "name": "Name",
+    "email": "Email",
+    "signupDate": "Signup Date",
+    "status": "Status"
+  },
+  "sort": {
+    "name": "name",
+    "email": "email",
+    "signupDate": "created_at"
+  },
+  "statusLabels": {
+    "active": "Active",
+    "deactivated": "Deactivated"
+  },
+  "actions": {
+    "view": "View",
+    "edit": "Edit",
+    "deactivate": "Deactivate",
+    "save": "Save Changes",
+    "back": "Back to List",
+    "cancel": "Cancel"
+  },
+  "messages": {
+    "loading": "Loading...",
+    "noUsers": "No users found.",
+    "deactivated": "User has been deactivated.",
+    "saveSuccess": "User updated successfully.",
+    "saveError": "Failed to update user.",
+    "loadError": "Failed to load users.",
+    "unauthorized": "You are not authorized to view this page."
+  },
+  "loginForm": {
+    "tokenLabel": "Admin Token",
+    "loginButton": "Login",
+    "tokenPlaceholder": "Enter admin token"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page"
+  },
+  "deactivatedBadge": "(deactivated)",
+  "editTitle": "Edit User",
+  "detailTitle": "User Details",
+  "fields": {
+    "name": "Name",
+    "email": "Email",
+    "status": "Status",
+    "subscribedAt": "Subscribed At",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  }
+}
