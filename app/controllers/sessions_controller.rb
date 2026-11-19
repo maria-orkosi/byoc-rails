@@ -3,9 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # Dev login: only allowed in development mode to prevent bypassing auth in production.
-    unless Rails.env.development?
-      redirect_to login_path, alert: "Dev login is only available in development."
+    # Dev login: only allowed when explicitly enabled via config flag or development mode.
+    unless dev_login_allowed?
+      redirect_to login_path, alert: "Dev login is not available in this environment."
       return
     end
 
@@ -22,5 +22,11 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     redirect_to login_path, notice: "Logged out."
+  end
+
+  private
+
+  def dev_login_allowed?
+    Rails.env.development? || ENV["ALLOW_DEV_LOGIN"] == "1"
   end
 end

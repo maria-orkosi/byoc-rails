@@ -1,8 +1,31 @@
 /* ============================================================
-   Dashboard styles — uses existing shadcn/ui design tokens.
-   No raw hex values. All colours reference CSS custom properties
-   defined by the app's theme (shadcn/ui dark theme defaults).
+   Dashboard styles — brand tokens from the product kit
+   (#d419d7 / #908d13), no raw hex values beyond the :root block.
    ============================================================ */
+
+:root {
+  /* Brand primitives */
+  --brand-primary: #d419d7;
+  --brand-accent: #908d13;
+
+  /* Dark theme surface tokens */
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #18181b;
+  --card-foreground: #fafafa;
+  --border: #27272a;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: var(--brand-primary);
+  --accent-foreground: #fafafa;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --primary: var(--brand-primary);
+  --primary-foreground: #fafafa;
+  --secondary: var(--brand-accent);
+  --secondary-foreground: #fafafa;
+  --ring: var(--brand-primary);
+}
 
 /* ---------- Reset & base ---------- */
 *,

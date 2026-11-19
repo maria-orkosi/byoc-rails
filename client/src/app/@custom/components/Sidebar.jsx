@@ -25,7 +25,7 @@ export default function Sidebar({ links, title }) {
         </ul>
         <div className="border-t border-border pt-4 mt-4">
           <a
-            href="/dashboard"
+            href="/"
             className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors"
           >
             <LogOut className="w-4 h-4" />
