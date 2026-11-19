@@ -43,6 +43,7 @@
     "page": "Page"
   },
   "deactivatedBadge": "(deactivated)",
+  "includeDeactivatedLabel": "Include deactivated users",
   "editTitle": "Edit User",
   "detailTitle": "User Details",
   "fields": {
