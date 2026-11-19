@@ -2,9 +2,6 @@ Rails.application.routes.draw do
   get "up" => "health#show"
   resources :bookings, only: [:index, :create]
 
-  # Dashboard
-  get "dashboard" => "dashboard#index"
-
   # Sessions (dev login)
   get "login" => "sessions#new"
   post "login" => "sessions#create"

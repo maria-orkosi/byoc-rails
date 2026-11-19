@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    render json: { message: "Login page" }
   end
 
   def create
@@ -14,7 +15,7 @@ class SessionsController < ApplicationController
       user = User.find_by(email: email)
       if user
         session[:user_id] = user.id
-        redirect_to dashboard_path, notice: "Logged in as #{user.email}"
+        redirect_to "/", notice: "Logged in as #{user.email}"
       else
         redirect_to login_path, alert: "No user found with that email."
       end

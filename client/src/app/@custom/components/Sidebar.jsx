@@ -24,13 +24,16 @@ export default function Sidebar({ links, title }) {
           })}
         </ul>
         <div className="border-t border-border pt-4 mt-4">
-          <a
-            href="/"
-            className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            Log out
-          </a>
+          <form action="/logout" method="post" className="w-full">
+            <input type="hidden" name="_method" value="delete" />
+            <button
+              type="submit"
+              className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors w-full"
+            >
+              <LogOut className="w-4 h-4" />
+              Log out
+            </button>
+          </form>
         </div>
       </nav>
     </aside>
