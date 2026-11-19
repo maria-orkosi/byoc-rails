@@ -1,4 +1,6 @@
 import { LogOut } from "lucide-react";
+import { Button } from "./Button.jsx";
+import { Input } from "./Input.jsx";
 
 export default function Sidebar({ links, title }) {
   return (
@@ -25,14 +27,16 @@ export default function Sidebar({ links, title }) {
         </ul>
         <div className="border-t border-border pt-4 mt-4">
           <form action="/logout" method="post" className="w-full">
-            <input type="hidden" name="_method" value="delete" />
-            <button
+            <Input type="hidden" name="_method" value="delete" />
+            <Button
               type="submit"
-              className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors w-full"
+              variant="ghost"
+              size="sm"
+              className="flex items-center gap-2 justify-start text-destructive hover:bg-destructive/10 w-full"
             >
               <LogOut className="w-4 h-4" />
               Log out
-            </button>
+            </Button>
           </form>
         </div>
       </nav>
