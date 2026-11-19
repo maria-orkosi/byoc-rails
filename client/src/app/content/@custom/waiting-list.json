@@ -1,0 +1,12 @@
+{
+  "heading": "Join the Waiting List",
+  "emailLabel": "Email",
+  "submitLabel": "Join",
+  "successMessage": "You're on the list!",
+  "duplicateMessage": "You're already on the list!",
+  "invalidMessage": "Please enter a valid email",
+  "rateLimitMessage": "Rate limit exceeded. Please try again later.",
+  "genericErrorMessage": "Something went wrong. Please try again.",
+  "networkErrorMessage": "Network error. Please try again.",
+  "submitCooldownMs": 5000
+}
