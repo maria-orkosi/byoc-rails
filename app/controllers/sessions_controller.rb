@@ -9,13 +9,17 @@ class SessionsController < ApplicationController
       return
     end
 
-    user_id = params[:user_id]
-    if user_id.present?
-      user = User.find_by(id: user_id) || User.create!(id: user_id, email: "dev-#{user_id}@example.com")
-      session[:user_id] = user.id
-      redirect_to dashboard_path, notice: "Logged in as user ##{user.id}"
+    email = params[:email]
+    if email.present?
+      user = User.find_by(email: email)
+      if user
+        session[:user_id] = user.id
+        redirect_to dashboard_path, notice: "Logged in as #{user.email}"
+      else
+        redirect_to login_path, alert: "No user found with that email."
+      end
     else
-      redirect_to login_path, alert: "Please provide a user_id."
+      redirect_to login_path, alert: "Please provide an email."
     end
   end
 

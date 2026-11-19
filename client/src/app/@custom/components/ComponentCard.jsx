@@ -15,7 +15,7 @@ export default function ComponentCard({ component }) {
         <span
           className={`inline-block w-2.5 h-2.5 rounded-full flex-shrink-0 ${
             isActive
-              ? "bg-accent shadow-[0_0_4px_var(--accent)]"
+              ? "bg-primary shadow-[0_0_4px_var(--primary)]"
               : isInactive
                 ? "bg-destructive shadow-[0_0_4px_var(--destructive)]"
                 : "bg-muted-foreground"

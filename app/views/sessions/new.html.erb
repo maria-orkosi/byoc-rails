@@ -19,12 +19,12 @@
     <% end %>
 
     <%= form_tag login_path, method: :get, class: "login-form" do %>
-      <label for="user_id" class="login-label">User ID</label>
-      <%= number_field_tag :user_id, nil, class: "login-input", placeholder: "Enter your user ID" %>
+      <label for="email" class="login-label">Email</label>
+      <%= email_field_tag :email, nil, class: "login-input", placeholder: "Enter your email" %>
       <%= submit_tag "Sign in", class: "login-button" %>
     <% end %>
 
-    <p class="login-hint">Development mode: enter any number to sign in.</p>
+    <p class="login-hint">Development mode: enter an existing user email to sign in.</p>
   </div>
 </body>
 </html>

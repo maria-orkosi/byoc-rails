@@ -20,6 +20,8 @@
   --accent-foreground: #fafafa;
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
+  --success: #22c55e;
+  --success-foreground: #fafafa;
   --primary: var(--brand-primary);
   --primary-foreground: #fafafa;
   --secondary: var(--brand-accent);
@@ -120,6 +122,12 @@ a {
 
 .sidebar-logout {
   color: var(--destructive);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  width: 100%;
 }
 
 .sidebar-logout:hover {
@@ -191,8 +199,8 @@ a {
 .status-dot.active,
 .status-dot.ok,
 .status-dot.running {
-  background-color: var(--accent);
-  box-shadow: 0 0 4px var(--accent);
+  background-color: var(--success);
+  box-shadow: 0 0 4px var(--success);
 }
 
 .status-dot.inactive,
