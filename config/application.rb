@@ -4,6 +4,7 @@ require "rails"
 require "active_record/railtie"
 require "active_job/railtie"
 require "action_controller/railtie"
+require "action_view/railtie"
 
 Bundler.require(*Rails.groups)
 
@@ -24,5 +25,8 @@ module Bookings
     config.cache_store = :memory_store
     config.active_support.cache_format_version = 7.1
     config.paths["tmp"] = "/tmp"
+
+    # Serve static files from public/ for the dashboard CSS.
+    config.public_file_server.enabled = true
   end
 end
