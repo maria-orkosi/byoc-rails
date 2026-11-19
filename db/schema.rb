@@ -1,4 +1,4 @@
-ActiveRecord::Schema[8.0].define(version: 2026_11_19_000001) do
+ActiveRecord::Schema[8.0].define(version: 2026_11_19_000002) do
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
@@ -13,6 +13,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_11_19_000001) do
     t.datetime "subscribed_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "status", default: "active", null: false
     t.index ["email"], name: "index_waiting_list_entries_on_email", unique: true
+    t.index ["status"], name: "index_waiting_list_entries_on_status"
   end
 end

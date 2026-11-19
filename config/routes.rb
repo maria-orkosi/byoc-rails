@@ -9,5 +9,9 @@ Rails.application.routes.draw do
     get "up" => "health#show"
     resources :bookings, only: [:index, :create]
     resource :waiting_list, only: [:new, :create]
+
+    namespace :admin do
+      resources :users, only: [:index, :show, :update, :destroy]
+    end
   end
 end
