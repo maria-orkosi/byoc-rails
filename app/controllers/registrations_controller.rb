@@ -19,16 +19,19 @@ class RegistrationsController < ActionController::API
   private
 
   def track_conversion(user_id)
+    endpoint = Rails.application.config.analytics_endpoint.to_s
+    return if endpoint.empty?
+
     # Fire-and-forget: do not block the response on analytics delivery.
     Thread.new do
       begin
-        uri = URI("https://analytics.example.com/event")
+        uri = URI(endpoint)
         http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
+        http.use_ssl = uri.scheme == "https"
         http.open_timeout = 2
         http.read_timeout = 2
 
-        req = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
+        req = Net::HTTP::Post.new(uri.path.empty? ? "/" : uri.path, { "Content-Type" => "application/json" })
         req.body = {
           key:    ENV["ANALYTICS_KEY"],
           event:  "signup_conversion",

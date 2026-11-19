@@ -9,32 +9,28 @@
     <% if Rails.application.config.analytics_enabled && Rails.application.config.analytics_key.present? %>
       <script nonce="<%= content_security_policy_nonce %>">
         window.trackingKey = <%= raw ENV["ANALYTICS_KEY"].to_json %>;
-        (function() {
-          var key = window.trackingKey;
-          var page = window.location.pathname;
-          var ref = document.referrer || "";
-          if (typeof fetch !== "undefined") {
-            fetch("https://analytics.example.com/event", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ key: key, event: "page_view", path: page, referrer: ref })
-            }).catch(function() { /* silent */ });
-          }
-        })();
+        window.trackingEndpoint = <%= raw (ENV["ANALYTICS_ENDPOINT"] || "").to_json %>;
       </script>
-      <%# application.js contents — wired inline so CSP nonce applies without an asset pipeline %>
+      <%# Analytics page-view tracking on Turbo navigation events. %>
+      <%# turbo:load fires on initial page render AND on every subsequent Turbo Drive navigation, %>
+      <%# so a single handler covers both cases without double-firing. %>
       <script nonce="<%= content_security_policy_nonce %>">
         document.addEventListener("turbo:load", function () {
           var key = window.trackingKey;
-          if (!key) return;
+          var endpoint = window.trackingEndpoint;
+          if (!key || !endpoint) return;
+
           var page = window.location.pathname;
           var ref = document.referrer || "";
+
           if (typeof fetch !== "undefined") {
-            fetch("https://analytics.example.com/event", {
+            fetch(endpoint, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ key: key, event: "page_view", path: page, referrer: ref })
-            }).catch(function () {});
+            }).catch(function () {
+              // Network failures are benign — do not surface to the user.
+            });
           }
         });
       </script>
