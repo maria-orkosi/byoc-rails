@@ -1,0 +1,33 @@
+<div class="summary-block">
+  <span class="summary-label">Project Name</span>
+  <div class="summary-value"><%= data[:project_name] %></div>
+</div>
+
+<div class="summary-block">
+  <span class="summary-label">Database</span>
+  <div class="summary-value"><%= data[:database_choice]&.capitalize %></div>
+</div>
+
+<div class="summary-block">
+  <span class="summary-label">Optional Gems</span>
+  <div class="summary-value">
+    <% gems = Array(data[:gems]).reject(&:blank?) %>
+    <%= gems.any? ? gems.join(", ") : "None selected" %>
+  </div>
+</div>
+
+<div class="form-group <%= 'has-error' if errors[:commit_message].present? %>">
+  <label class="form-label" for="commit_message">Initial Commit Message</label>
+  <input
+    type="text"
+    name="commit_message"
+    id="commit_message"
+    class="form-input"
+    value="<%= data[:commit_message] %>"
+    placeholder="e.g., Initial scaffold of Byoc Rails project"
+    autofocus
+  />
+  <% if errors[:commit_message].present? %>
+    <p class="form-error"><%= errors[:commit_message] %></p>
+  <% end %>
+</div>

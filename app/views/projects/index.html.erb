@@ -1,0 +1,25 @@
+<h1 class="dashboard-title">Dashboard</h1>
+
+<% if @projects.any? %>
+  <div class="card">
+    <% @projects.each do |project| %>
+      <div class="project-item">
+        <a href="<%= project_path(project) %>" class="project-name-link"><%= project.name %></a>
+        <div class="project-meta">
+          Database: <%= project.database_choice.capitalize %> |
+          Created: <%= project.created_at.strftime("%b %d, %Y") %>
+          <span class="badge badge-success" style="margin-left: 0.5rem;"><%= project.status %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div style="text-align: center; margin-top: 1.5rem;">
+    <a href="<%= onboarding_path(step: 1) %>" class="btn btn-primary">New Project</a>
+  </div>
+<% else %>
+  <div class="empty-state">
+    <p>No projects yet.</p>
+    <a href="<%= onboarding_path(step: 1) %>" class="btn btn-primary">Create Your First Project</a>
+  </div>
+<% end %>

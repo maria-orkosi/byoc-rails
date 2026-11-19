@@ -1,0 +1,5 @@
+{
+  "pageTitle": "Dashboard",
+  "pageDescription": "View and manage your Byoc Rails projects.",
+  "endpoint": "/projects"
+}

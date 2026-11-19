@@ -1,0 +1,6 @@
+{
+  "pageTitle": "Onboarding",
+  "pageDescription": "Set up your first Byoc Rails project step by step.",
+  "endpoint": "/onboarding",
+  "totalSteps": 4
+}

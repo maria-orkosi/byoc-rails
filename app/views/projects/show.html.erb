@@ -1,0 +1,32 @@
+<h1 class="dashboard-title"><%= @project.name %></h1>
+
+<div class="card">
+  <div class="summary-block">
+    <span class="summary-label">Status</span>
+    <div class="summary-value"><span class="badge badge-success"><%= @project.status %></span></div>
+  </div>
+
+  <div class="summary-block">
+    <span class="summary-label">Database</span>
+    <div class="summary-value"><%= @project.database_choice.capitalize %></div>
+  </div>
+
+  <div class="summary-block">
+    <span class="summary-label">Gems</span>
+    <div class="summary-value"><%= @project.gems.any? ? @project.gems.join(", ") : "None" %></div>
+  </div>
+
+  <div class="summary-block">
+    <span class="summary-label">Initial Commit</span>
+    <div class="summary-value"><%= @project.commit_message %></div>
+  </div>
+
+  <div class="summary-block">
+    <span class="summary-label">Created</span>
+    <div class="summary-value"><%= @project.created_at.strftime("%B %d, %Y at %H:%M") %></div>
+  </div>
+</div>
+
+<div style="margin-top: 1.5rem;">
+  <a href="<%= projects_path %>" class="btn btn-secondary">Back to Dashboard</a>
+</div>

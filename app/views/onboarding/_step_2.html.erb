@@ -1,0 +1,12 @@
+<div class="form-group <%= 'has-error' if errors[:database_choice].present? %>">
+  <label class="form-label" for="database_choice">Database</label>
+  <select name="database_choice" id="database_choice" class="form-select">
+    <option value="">-- Select a database --</option>
+    <% database_options.each do |label, value| %>
+      <option value="<%= value %>" <%= 'selected' if data[:database_choice] == value %>><%= label %></option>
+    <% end %>
+  </select>
+  <% if errors[:database_choice].present? %>
+    <p class="form-error"><%= errors[:database_choice] %></p>
+  <% end %>
+</div>

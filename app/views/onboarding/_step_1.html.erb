@@ -1,0 +1,15 @@
+<div class="form-group <%= 'has-error' if errors[:project_name].present? %>">
+  <label class="form-label" for="project_name">Project Name</label>
+  <input
+    type="text"
+    name="project_name"
+    id="project_name"
+    class="form-input"
+    value="<%= data[:project_name] %>"
+    placeholder="e.g., my-byoc-rails-app"
+    autofocus
+  />
+  <% if errors[:project_name].present? %>
+    <p class="form-error"><%= errors[:project_name] %></p>
+  <% end %>
+</div>

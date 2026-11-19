@@ -1,0 +1,15 @@
+<p style="font-size: 0.875rem; color: #64748b; margin-bottom: 1rem;">These gems are optional. You can add them later.</p>
+
+<% selected_gems = Array(data[:gems]) %>
+<% gem_options.each do |label, value| %>
+  <div class="gem-checkbox">
+    <input
+      type="checkbox"
+      name="gems[]"
+      value="<%= value %>"
+      id="gem_<%= value %>"
+      <%= 'checked' if selected_gems.include?(value) %>
+    />
+    <label for="gem_<%= value %>" style="font-size: 0.875rem; cursor: pointer;"><%= label %></label>
+  </div>
+<% end %>

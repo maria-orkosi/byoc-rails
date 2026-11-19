@@ -1,0 +1,64 @@
+<div class="progress-bar">
+  <% (1..OnboardingController::TOTAL_STEPS).each do |i| %>
+    <span class="progress-step <%= onboarding_step_class(i, @step) %>">
+      <%= onboarding_step_label(i, @step) %>
+    </span>
+    <% if i < OnboardingController::TOTAL_STEPS %>
+      <span class="progress-connector <%= 'completed' if i < @step %>"></span>
+    <% end %>
+  <% end %>
+</div>
+
+<h2 class="step-title">
+  <% case @step %>
+  <% when 1 %>Name Your Project
+  <% when 2 %>Choose Your Database
+  <% when 3 %>Select Optional Gems
+  <% when 4 %>Review and Create
+  <% end %>
+</h2>
+
+<p class="step-description">
+  <% case @step %>
+  <% when 1 %>Give your Byoc Rails project a name to get started.
+  <% when 2 %>Select the database engine for your new project.
+  <% when 3 %>Pick any additional gems you would like included.
+  <% when 4 %>Review your choices and set an initial commit message.
+  <% end %>
+</p>
+
+<%= form_tag onboarding_path, method: :patch, data: { turbo: false } do %>
+  <%= hidden_field_tag :step, @step %>
+
+  <div class="card">
+    <% case @step %>
+    <% when 1 %>
+      <%= render partial: "step_1", locals: { data: @onboarding_data, errors: @errors || {} } %>
+    <% when 2 %>
+      <%= render partial: "step_2", locals: { data: @onboarding_data, errors: @errors || {} } %>
+    <% when 3 %>
+      <%= render partial: "step_3", locals: { data: @onboarding_data, errors: @errors || {} } %>
+    <% when 4 %>
+      <%= render partial: "step_4", locals: { data: @onboarding_data, errors: @errors || {} } %>
+    <% end %>
+  </div>
+
+  <div class="button-row">
+    <div>
+      <% if @step > 1 %>
+        <%= link_to "Back", onboarding_path(step: @step, direction: "back"), method: :patch, class: "btn btn-secondary", data: { turbo: false } %>
+      <% end %>
+    </div>
+    <div>
+      <% if @step < OnboardingController::TOTAL_STEPS %>
+        <%= submit_tag "Next", class: "btn btn-primary" %>
+      <% else %>
+        <%= submit_tag "Create Project", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<p style="text-align:center; margin-top: 1.5rem;">
+  <%= link_to "Skip onboarding", projects_path, style: "font-size: 0.875rem; color: #94a3b8; text-decoration: underline;" %>
+</p>

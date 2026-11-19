@@ -12,4 +12,19 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  # Enable controller specs
+  config.infer_spec_type_from_file_location!
+
+  # Include session and request helpers for controller specs
+  config.include RSpec::Rails::ControllerExampleGroup, type: :controller
+
+  # Setup fixtures path
+  config.fixture_paths = [Rails.root.join("spec", "fixtures")]
+
+  # Use transactional fixtures
+  config.use_transactional_fixtures = true
+
+  # Include helper methods
+  config.include ActionView::Helpers, type: :helper
 end
