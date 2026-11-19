@@ -163,15 +163,18 @@ export default function AdminUsersList() {
                 <thead>
                   <tr className="border-b border-brand-border bg-brand-surface-muted">
                     <th className="cursor-pointer px-4 py-3 font-medium text-brand-text hover:text-brand-primary"
-                      onClick={() => handleSort("name")}>
+                      onClick={() => handleSort("name")}
+                      aria-sort={sort === "name" ? (direction === "asc" ? "ascending" : "descending") : "none"}>
                       {content.columns.name}{sortIndicator("name")}
                     </th>
                     <th className="cursor-pointer px-4 py-3 font-medium text-brand-text hover:text-brand-primary"
-                      onClick={() => handleSort("email")}>
+                      onClick={() => handleSort("email")}
+                      aria-sort={sort === "email" ? (direction === "asc" ? "ascending" : "descending") : "none"}>
                       {content.columns.email}{sortIndicator("email")}
                     </th>
                     <th className="cursor-pointer px-4 py-3 font-medium text-brand-text hover:text-brand-primary"
-                      onClick={() => handleSort("created_at")}>
+                      onClick={() => handleSort("created_at")}
+                      aria-sort={sort === "created_at" ? (direction === "asc" ? "ascending" : "descending") : "none"}>
                       {content.columns.signupDate}{sortIndicator("created_at")}
                     </th>
                     <th className="px-4 py-3 font-medium text-brand-text">{content.columns.status}</th>
