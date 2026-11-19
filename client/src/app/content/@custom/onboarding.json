@@ -1,0 +1,34 @@
+{
+  "pageTitle": "Get Started",
+  "pageDescription": "Follow these steps to set up your workspace and start deploying.",
+  "startLabel": "Start Onboarding",
+  "skipLabel": "Skip",
+  "nextLabel": "Next",
+  "retryLabel": "Retry",
+  "startingLabel": "Starting...",
+  "savingLabel": "Saving...",
+  "steps": {
+    "welcome": {
+      "title": "Welcome to Byoc Rails",
+      "description": "You're just a few steps away from your first deployment. Let's get you set up quickly."
+    },
+    "profile": {
+      "title": "Set Up Your Profile",
+      "description": "Tell us a bit about yourself so we can personalize your experience."
+    },
+    "preferences": {
+      "title": "Configure Preferences",
+      "description": "Choose your deployment preferences and defaults."
+    },
+    "complete": {
+      "title": "You're All Set!",
+      "description": "Your workspace is ready. Start deploying your first application."
+    }
+  },
+  "loadingMessage": "Loading your onboarding progress...",
+  "errorMessage": "Something went wrong. Please try again.",
+  "notStartedMessage": "Ready to get started? Complete the onboarding flow to deploy your first app.",
+  "completedMessage": "You've completed the onboarding. Start deploying!",
+  "emptyMessage": "No onboarding data found for this account.",
+  "emptyActionLabel": "Start Setup"
+}
