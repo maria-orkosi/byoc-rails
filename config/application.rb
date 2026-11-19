@@ -23,6 +23,6 @@ module Bookings
     # The host writes nothing under the app directory: caches and pids live in the one writable path.
     config.cache_store = :memory_store
     config.active_support.cache_format_version = 7.1
-    config.paths["tmp"] = ENV.fetch("TMPDIR", "/tmp")
+    config.paths["tmp"] = "/tmp"
   end
 end
