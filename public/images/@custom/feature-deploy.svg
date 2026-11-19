@@ -119,7 +119,6 @@
   <!-- BR mark -->
   <g transform="translate(492, 80)">
     <rect x="0" y="0" width="40" height="40" rx="8" fill="#d419d7"/>
-    <text x="20" y="28" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="16" font-weight="bold">BR</text>
   </g>
 
   <!-- Decorative circles -->

@@ -63,7 +63,6 @@
 
     <!-- BR mark -->
     <rect x="40" y="400" width="60" height="60" rx="12" fill="#d419d7"/>
-    <text x="70" y="438" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="24" font-weight="bold">BR</text>
   </g>
 
   <!-- Center - Flow / Pipeline -->
