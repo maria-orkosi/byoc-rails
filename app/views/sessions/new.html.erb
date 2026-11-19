@@ -18,7 +18,7 @@
       <p class="login-notice"><%= flash[:notice] %></p>
     <% end %>
 
-    <%= form_tag login_path, method: :get, class: "login-form" do %>
+    <%= form_tag login_path, method: :post, class: "login-form" do %>
       <label for="email" class="login-label">Email</label>
       <%= email_field_tag :email, nil, class: "login-input", placeholder: "Enter your email" %>
       <%= submit_tag "Sign in", class: "login-button" %>

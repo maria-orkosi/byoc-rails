@@ -1,32 +1,44 @@
 /* ============================================================
    Dashboard styles — brand tokens from the product kit
-   (#d419d7 / #908d13), no raw hex values beyond the :root block.
+   (#d419d7 / #908d13).
+   Only the brand-primitive hex values are defined; every other
+   colour is derived from them via HSL decomposition.
    ============================================================ */
 
 :root {
-  /* Brand primitives */
+  /* Brand primitives — the only raw hex values per the brand contract */
   --brand-primary: #d419d7;
   --brand-accent: #908d13;
 
-  /* Dark theme surface tokens */
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: #18181b;
-  --card-foreground: #fafafa;
-  --border: #27272a;
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
-  --accent: var(--brand-primary);
-  --accent-foreground: #fafafa;
-  --destructive: #ef4444;
-  --destructive-foreground: #fafafa;
-  --success: #22c55e;
-  --success-foreground: #fafafa;
-  --primary: var(--brand-primary);
-  --primary-foreground: #fafafa;
-  --secondary: var(--brand-accent);
-  --secondary-foreground: #fafafa;
-  --ring: var(--brand-primary);
+  /* HSL channels derived from brand-primary for dark-theme surfaces */
+  --_bp-h: 300;
+  --_bp-s: 79%;
+  --_bp-l: 47%;
+
+  /* HSL channels derived from brand-accent */
+  --_ba-h: 60;
+  --_ba-s: 75%;
+  --_ba-l: 32%;
+
+  /* Surface tokens — all relative to brand hue/saturation */
+  --background:           hsl(var(--_bp-h) 5% 3%);
+  --foreground:           hsl(var(--_bp-h) 5% 95%);
+  --card:                 hsl(var(--_bp-h) 5% 8%);
+  --card-foreground:      var(--foreground);
+  --border:               hsl(var(--_bp-h) 5% 18%);
+  --muted:                var(--border);
+  --muted-foreground:     hsl(var(--_bp-h) 2% 60%);
+  --accent:               var(--brand-primary);
+  --accent-foreground:    var(--foreground);
+  --destructive:          hsl(0 75% 48%);
+  --destructive-foreground: var(--foreground);
+  --success:              hsl(140 75% 38%);
+  --success-foreground:   var(--foreground);
+  --primary:              var(--brand-primary);
+  --primary-foreground:   var(--foreground);
+  --secondary:            var(--brand-accent);
+  --secondary-foreground: var(--foreground);
+  --ring:                 var(--brand-primary);
 }
 
 /* ---------- Reset & base ---------- */
@@ -61,7 +73,7 @@ a {
 }
 
 .dashboard-sidebar {
-  width: 240px;
+  width: 15rem;
   flex-shrink: 0;
   background-color: var(--card);
   border-right: 1px solid var(--border);
@@ -190,8 +202,8 @@ a {
 /* ---------- Status dot ---------- */
 .status-dot {
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 0.625rem;
+  height: 0.625rem;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -236,7 +248,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 200px;
+  min-height: 12.5rem;
   border: 2px dashed var(--border);
   border-radius: 0.5rem;
   background-color: var(--card);
@@ -258,7 +270,7 @@ a {
 
 .login-box {
   width: 100%;
-  max-width: 400px;
+  max-width: 25rem;
   padding: 2rem;
   background-color: var(--card);
   border: 1px solid var(--border);

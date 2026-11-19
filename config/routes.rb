@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # Sessions (dev login)
   get "login" => "sessions#new"
-  get "login/create" => "sessions#create"
+  post "login" => "sessions#create"
   delete "logout" => "sessions#destroy"
 
   # The same API under /api: the host router of a product with a frontend maps /api to this part.

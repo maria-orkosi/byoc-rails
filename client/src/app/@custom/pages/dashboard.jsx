@@ -16,6 +16,10 @@ export default function DashboardPage() {
     async function fetchComponents() {
       try {
         const res = await fetch(`${API_BASE}/api/components`);
+        if (res.status === 401) {
+          window.location.href = `${API_BASE}/login`;
+          return;
+        }
         if (!res.ok) throw new Error("Failed to fetch components");
         const data = await res.json();
         if (!cancelled) {

@@ -10,9 +10,9 @@ RSpec.describe "Sessions", type: :request do
     end
   end
 
-  describe "GET /login/create" do
+  describe "POST /login" do
     it "redirects with alert when email is missing" do
-      get "/login/create"
+      post "/login"
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to("/login")
