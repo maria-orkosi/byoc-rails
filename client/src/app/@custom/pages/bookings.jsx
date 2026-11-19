@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
+import Input from "../../@custom/components/Input.jsx";
+import Button from "../../@custom/components/Button.jsx";
+import { brand } from "../../../config/@custom/brand-tokens.js";
 
 const API_BASE = "/api";
+
+const layoutVars = {
+  "--ff": `'${brand.font.body}', sans-serif`,
+};
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState([]);
@@ -92,34 +99,16 @@ export default function BookingsPage() {
 
   return (
     <main
-      style={{
-        fontFamily: "'Inter', sans-serif",
-        maxWidth: 800,
-        margin: "0 auto",
-        padding: 24,
-      }}
+      className="mx-auto max-w-[800px] p-6 font-[var(--ff)]"
+      style={layoutVars}
     >
-      <h1
-        style={{
-          fontSize: 24,
-          fontWeight: 700,
-          marginBottom: 24,
-          color: "#111827",
-        }}
-      >
+      <h1 className="mb-6 text-2xl font-bold text-[var(--brand-text)]">
         Bookings
       </h1>
 
       {error && (
         <div
-          style={{
-            padding: 12,
-            marginBottom: 16,
-            borderRadius: 8,
-            background: "#fef2f2",
-            color: "#991b1b",
-            border: "1px solid #fecaca",
-          }}
+          className="mb-4 rounded-lg border border-solid border-[var(--brand-border)] bg-[var(--brand-surface)] p-3 text-[var(--brand-text)]"
         >
           {error}
         </div>
@@ -127,197 +116,104 @@ export default function BookingsPage() {
 
       <form
         onSubmit={handleSubmit}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 12,
-          marginBottom: 32,
-          padding: 20,
-          borderRadius: 12,
-          border: "1px solid #e5e7eb",
-          background: "#f9fafb",
-        }}
+        className="mb-8 flex flex-col gap-3 rounded-xl border border-solid border-[var(--brand-border)] bg-[var(--brand-surface)] p-5"
       >
-        <h2 style={{ fontSize: 18, fontWeight: 600, margin: 0, color: "#111827" }}>
+        <h2 className="m-0 text-lg font-semibold text-[var(--brand-text)]">
           {editingId ? "Edit Booking" : "New Booking"}
         </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <label htmlFor="guest" style={{ fontSize: 14, fontWeight: 500, color: "#374151" }}>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="guest" className="text-sm font-medium text-[var(--brand-text)]">
             Guest Name
           </label>
-          <input
+          <Input
             id="guest"
             type="text"
             value={guest}
             onChange={(e) => setGuest(e.target.value)}
             required
-            style={{
-              padding: "8px 12px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              fontSize: 14,
-              fontFamily: "'Inter', sans-serif",
-            }}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <label htmlFor="night" style={{ fontSize: 14, fontWeight: 500, color: "#374151" }}>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="night" className="text-sm font-medium text-[var(--brand-text)]">
             Night
           </label>
-          <input
+          <Input
             id="night"
             type="date"
             value={night}
             onChange={(e) => setNight(e.target.value)}
             required
-            style={{
-              padding: "8px 12px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              fontSize: 14,
-              fontFamily: "'Inter', sans-serif",
-            }}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <label htmlFor="email" style={{ fontSize: 14, fontWeight: 500, color: "#374151" }}>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="email" className="text-sm font-medium text-[var(--brand-text)]">
             Email
           </label>
-          <input
+          <Input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={{
-              padding: "8px 12px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              fontSize: 14,
-              fontFamily: "'Inter', sans-serif",
-            }}
           />
         </div>
-        <div style={{ display: "flex", gap: 8 }}>
-          <button
-            type="submit"
-            style={{
-              padding: "8px 16px",
-              borderRadius: 8,
-              border: "none",
-              background: "#6b7280",
-              color: "#fff",
-              fontSize: 14,
-              fontWeight: 500,
-              fontFamily: "'Inter', sans-serif",
-              cursor: "pointer",
-            }}
-          >
+        <div className="flex gap-2">
+          <Button type="submit" variant="primary">
             {editingId ? "Update" : "Create"}
-          </button>
+          </Button>
           {editingId && (
-            <button
-              type="button"
-              onClick={handleCancel}
-              style={{
-                padding: "8px 16px",
-                borderRadius: 8,
-                border: "1px solid #d1d5db",
-                background: "#fff",
-                color: "#374151",
-                fontSize: 14,
-                fontWeight: 500,
-                fontFamily: "'Inter', sans-serif",
-                cursor: "pointer",
-              }}
-            >
+            <Button type="button" variant="secondary" onClick={handleCancel}>
               Cancel
-            </button>
+            </Button>
           )}
         </div>
       </form>
 
       <section aria-busy={loading}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 16, color: "#111827" }}>
+        <h2 className="mb-4 text-lg font-semibold text-[var(--brand-text)]">
           All Bookings
         </h2>
 
         {loading && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div className="flex flex-col gap-3">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                style={{
-                  height: 48,
-                  borderRadius: 8,
-                  background: "#f3f4f6",
-                }}
+                className="h-12 rounded-lg bg-[var(--brand-border)]"
               />
             ))}
           </div>
         )}
 
         {!loading && !error && bookings.length === 0 && (
-          <div style={{ textAlign: "center", padding: 32, color: "#6b7280" }}>
-            <p style={{ fontSize: 16, marginBottom: 8 }}>No bookings yet</p>
-            <p style={{ fontSize: 14 }}>Create your first booking using the form above.</p>
+          <div className="p-8 text-center text-[var(--brand-text-muted)]">
+            <p className="mb-2 text-base">No bookings yet</p>
+            <p className="text-sm">Create your first booking using the form above.</p>
           </div>
         )}
 
         {!loading && bookings.length > 0 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div className="flex flex-col gap-2">
             {bookings.map((booking) => (
               <div
                 key={booking.id}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "12px 16px",
-                  borderRadius: 8,
-                  border: "1px solid #e5e7eb",
-                  background: "#fff",
-                }}
+                className="flex items-center justify-between rounded-lg border border-solid border-[var(--brand-border)] bg-[var(--brand-bg)] px-4 py-3"
               >
                 <div>
-                  <div style={{ fontWeight: 600, color: "#111827" }}>
+                  <div className="font-semibold text-[var(--brand-text)]">
                     {booking.guest}
                   </div>
-                  <div style={{ fontSize: 14, color: "#6b7280" }}>
+                  <div className="text-sm text-[var(--brand-text-muted)]">
                     {booking.night}
                     {booking.email ? ` — ${booking.email}` : ""}
                   </div>
                 </div>
-                <div style={{ display: "flex", gap: 8 }}>
-                  <button
-                    onClick={() => handleEdit(booking)}
-                    style={{
-                      padding: "4px 12px",
-                      borderRadius: 6,
-                      border: "1px solid #d1d5db",
-                      background: "#fff",
-                      color: "#374151",
-                      fontSize: 13,
-                      fontFamily: "'Inter', sans-serif",
-                      cursor: "pointer",
-                    }}
-                  >
+                <div className="flex gap-2">
+                  <Button variant="ghost" onClick={() => handleEdit(booking)}>
                     Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(booking.id)}
-                    style={{
-                      padding: "4px 12px",
-                      borderRadius: 6,
-                      border: "1px solid #fecaca",
-                      background: "#fef2f2",
-                      color: "#991b1b",
-                      fontSize: 13,
-                      fontFamily: "'Inter', sans-serif",
-                      cursor: "pointer",
-                    }}
-                  >
+                  </Button>
+                  <Button variant="danger" onClick={() => handleDelete(booking.id)}>
                     Delete
-                  </button>
+                  </Button>
                 </div>
               </div>
             ))}

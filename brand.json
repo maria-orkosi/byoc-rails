@@ -22,5 +22,14 @@
       "xl": "16px"
     },
     "iconLibrary": "lucide-react"
+  },
+  "blog": {
+    "topics": [
+      "Getting started with our booking platform",
+      "Travel tips and destination guides",
+      "Product updates and new features",
+      "Customer stories and testimonials",
+      "Industry insights and best practices"
+    ]
   }
 }
