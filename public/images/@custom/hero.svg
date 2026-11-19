@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0a1a"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d419d7"/>
+      <stop offset="100%" stop-color="#908d13"/>
+    </linearGradient>
+    <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#908d13"/>
+      <stop offset="100%" stop-color="#d419d7" stop-opacity="0.6"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.3" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#d419d7" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#d419d7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.7" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#908d13" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#908d13" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <!-- Glows -->
+  <rect width="1600" height="900" fill="url(#glow1)"/>
+  <rect width="1600" height="900" fill="url(#glow2)"/>
+
+  <!-- Grid pattern -->
+  <g stroke="#d419d7" stroke-opacity="0.04" stroke-width="0.5">
+    <line x1="0" y1="150" x2="1600" y2="150"/>
+    <line x1="0" y1="300" x2="1600" y2="300"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/>
+    <line x1="0" y1="600" x2="1600" y2="600"/>
+    <line x1="0" y1="750" x2="1600" y2="750"/>
+    <line x1="200" y1="0" x2="200" y2="900"/>
+    <line x1="400" y1="0" x2="400" y2="900"/>
+    <line x1="600" y1="0" x2="600" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900"/>
+    <line x1="1000" y1="0" x2="1000" y2="900"/>
+    <line x1="1200" y1="0" x2="1200" y2="900"/>
+    <line x1="1400" y1="0" x2="1400" y2="900"/>
+  </g>
+
+  <!-- Left side - Source code / Repository representation -->
+  <g transform="translate(200, 200)">
+    <!-- Code block outline -->
+    <rect x="0" y="0" width="300" height="500" rx="16" fill="none" stroke="#d419d7" stroke-width="2" stroke-opacity="0.3"/>
+    <rect x="0" y="0" width="300" height="500" rx="16" fill="#d419d7" fill-opacity="0.04"/>
+    <!-- Code lines -->
+    <rect x="40" y="50" width="220" height="8" rx="4" fill="#d419d7" fill-opacity="0.4"/>
+    <rect x="40" y="80" width="160" height="8" rx="4" fill="#908d13" fill-opacity="0.4"/>
+    <rect x="40" y="110" width="200" height="8" rx="4" fill="#d419d7" fill-opacity="0.3"/>
+    <rect x="60" y="150" width="180" height="8" rx="4" fill="#d419d7" fill-opacity="0.35"/>
+    <rect x="60" y="180" width="140" height="8" rx="4" fill="#908d13" fill-opacity="0.3"/>
+    <rect x="60" y="210" width="200" height="8" rx="4" fill="#d419d7" fill-opacity="0.3"/>
+    <rect x="40" y="260" width="220" height="8" rx="4" fill="#d419d7" fill-opacity="0.4"/>
+    <rect x="40" y="290" width="120" height="8" rx="4" fill="#908d13" fill-opacity="0.4"/>
+    <rect x="40" y="320" width="180" height="8" rx="4" fill="#d419d7" fill-opacity="0.3"/>
+
+    <!-- BR mark -->
+    <rect x="40" y="400" width="60" height="60" rx="12" fill="#d419d7"/>
+  </g>
+
+  <!-- Center - Flow / Pipeline -->
+  <g>
+    <!-- Connecting path from code to deployment -->
+    <path d="M 500 400 Q 650 300 800 400" fill="none" stroke="url(#grad1)" stroke-width="3" stroke-dasharray="8 6" stroke-opacity="0.5"/>
+    <path d="M 500 450 Q 650 550 800 450" fill="none" stroke="url(#grad2)" stroke-width="3" stroke-dasharray="8 6" stroke-opacity="0.5"/>
+
+    <!-- Flow particles -->
+    <circle cx="580" cy="345" r="4" fill="#d419d7" opacity="0.6"/>
+    <circle cx="650" cy="320" r="3" fill="#908d13" opacity="0.5"/>
+    <circle cx="720" cy="345" r="4" fill="#d419d7" opacity="0.6"/>
+    <circle cx="580" cy="505" r="3" fill="#908d13" opacity="0.5"/>
+    <circle cx="650" cy="530" r="4" fill="#d419d7" opacity="0.6"/>
+    <circle cx="720" cy="505" r="3" fill="#908d13" opacity="0.5"/>
+
+    <!-- Center hub -->
+    <circle cx="650" cy="400" r="70" fill="none" stroke="#d419d7" stroke-width="2" stroke-opacity="0.25"/>
+    <circle cx="650" cy="400" r="50" fill="none" stroke="#908d13" stroke-width="2" stroke-opacity="0.2"/>
+    <circle cx="650" cy="400" r="30" fill="#d419d7" fill-opacity="0.08"/>
+    <circle cx="650" cy="400" r="8" fill="#d419d7" fill-opacity="0.6"/>
+    <circle cx="650" cy="400" r="4" fill="#908d13"/>
+
+    <!-- Ring segments -->
+    <g transform="translate(650, 400)">
+      <ellipse cx="0" cy="-65" rx="8" ry="3" fill="#d419d7" opacity="0.3"/>
+      <ellipse cx="65" cy="0" rx="3" ry="8" fill="#908d13" opacity="0.3"/>
+      <ellipse cx="0" cy="65" rx="8" ry="3" fill="#d419d7" opacity="0.3"/>
+      <ellipse cx="-65" cy="0" rx="3" ry="8" fill="#908d13" opacity="0.3"/>
+    </g>
+  </g>
+
+  <!-- Right side - Infrastructure -->
+  <g transform="translate(960, 150)">
+    <rect x="80" y="50" width="200" height="500" rx="12" fill="none" stroke="#908d13" stroke-width="2" stroke-opacity="0.3"/>
+    <rect x="80" y="50" width="200" height="500" rx="12" fill="#908d13" fill-opacity="0.04"/>
+
+    <rect x="110" y="90" width="140" height="50" rx="8" fill="none" stroke="#d419d7" stroke-width="1.5" stroke-opacity="0.35"/>
+    <circle cx="130" cy="115" r="10" fill="#d419d7" fill-opacity="0.15"/>
+    <rect x="150" y="108" width="60" height="14" rx="4" fill="#d419d7" fill-opacity="0.2"/>
+
+    <rect x="110" y="160" width="140" height="50" rx="8" fill="none" stroke="#908d13" stroke-width="1.5" stroke-opacity="0.35"/>
+    <circle cx="130" cy="185" r="10" fill="#908d13" fill-opacity="0.15"/>
+    <rect x="150" y="178" width="60" height="14" rx="4" fill="#908d13" fill-opacity="0.2"/>
+
+    <rect x="110" y="230" width="140" height="50" rx="8" fill="none" stroke="#d419d7" stroke-width="1.5" stroke-opacity="0.35"/>
+    <circle cx="130" cy="255" r="10" fill="#d419d7" fill-opacity="0.15"/>
+    <rect x="150" y="248" width="60" height="14" rx="4" fill="#d419d7" fill-opacity="0.2"/>
+
+    <rect x="110" y="300" width="140" height="50" rx="8" fill="none" stroke="#908d13" stroke-width="1.5" stroke-opacity="0.35"/>
+    <circle cx="130" cy="325" r="10" fill="#908d13" fill-opacity="0.15"/>
+    <rect x="150" y="318" width="60" height="14" rx="4" fill="#908d13" fill-opacity="0.2"/>
+
+    <rect x="110" y="370" width="140" height="50" rx="8" fill="none" stroke="#d419d7" stroke-width="1.5" stroke-opacity="0.35"/>
+    <circle cx="130" cy="395" r="10" fill="#d419d7" fill-opacity="0.15"/>
+    <rect x="150" y="388" width="60" height="14" rx="4" fill="#d419d7" fill-opacity="0.2"/>
+
+    <rect x="110" y="440" width="140" height="50" rx="8" fill="none" stroke="#908d13" stroke-width="1.5" stroke-opacity="0.35"/>
+    <circle cx="130" cy="465" r="10" fill="#908d13" fill-opacity="0.15"/>
+    <rect x="150" y="458" width="60" height="14" rx="4" fill="#908d13" fill-opacity="0.2"/>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="880" width="1600" height="20" fill="url(#grad1)" opacity="0.3"/>
+
+  <!-- Corner decorations -->
+  <circle cx="1520" cy="780" r="120" fill="none" stroke="#d419d7" stroke-width="1" stroke-opacity="0.08"/>
+  <circle cx="1520" cy="780" r="160" fill="none" stroke="#908d13" stroke-width="0.5" stroke-opacity="0.06"/>
+  <circle cx="80" cy="120" r="100" fill="none" stroke="#908d13" stroke-width="1" stroke-opacity="0.08"/>
+  <circle cx="80" cy="120" r="140" fill="none" stroke="#d419d7" stroke-width="0.5" stroke-opacity="0.06"/>
+</svg>
