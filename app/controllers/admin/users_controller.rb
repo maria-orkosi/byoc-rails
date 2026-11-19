@@ -6,11 +6,14 @@ module Admin
     def index
       entries = base_scope
       entries = apply_sorting(entries)
-      entries = entries.page(params[:page]).per(PER_PAGE)
+      total_count = entries.count
+      page = [params[:page].to_i, 1].max
+      offset = (page - 1) * PER_PAGE
+      entries = entries.offset(offset).limit(PER_PAGE)
 
       render json: {
         users: entries.map { |e| serialize_user(e) },
-        meta: pagination_meta(entries)
+        meta: pagination_meta(page, total_count)
       }
     end
 
@@ -99,11 +102,12 @@ module Admin
       }
     end
 
-    def pagination_meta(entries)
+    def pagination_meta(current_page, total_count)
+      total_pages = (total_count.to_f / PER_PAGE).ceil
       {
-        current_page: entries.current_page,
-        total_pages: entries.total_pages,
-        total_count: entries.total_count,
+        current_page: current_page,
+        total_pages: total_pages,
+        total_count: total_count,
         per_page: PER_PAGE
       }
     end
