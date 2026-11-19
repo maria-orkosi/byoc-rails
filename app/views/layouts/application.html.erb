@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Byoc Rails</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <% if Rails.application.config.analytics_enabled && Rails.application.config.analytics_key.present? %>
+      <script nonce="<%= content_security_policy_nonce %>">
+        window.trackingKey = <%= raw ENV["ANALYTICS_KEY"].to_json %>;
+        (function() {
+          var key = window.trackingKey;
+          var page = window.location.pathname;
+          var ref = document.referrer || "";
+          if (typeof fetch !== "undefined") {
+            fetch("https://analytics.example.com/event", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ key: key, event: "page_view", path: page, referrer: ref })
+            }).catch(function() { /* silent */ });
+          }
+        })();
+      </script>
+      <%# application.js contents — wired inline so CSP nonce applies without an asset pipeline %>
+      <script nonce="<%= content_security_policy_nonce %>">
+        document.addEventListener("turbo:load", function () {
+          var key = window.trackingKey;
+          if (!key) return;
+          var page = window.location.pathname;
+          var ref = document.referrer || "";
+          if (typeof fetch !== "undefined") {
+            fetch("https://analytics.example.com/event", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ key: key, event: "page_view", path: page, referrer: ref })
+            }).catch(function () {});
+          }
+        });
+      </script>
+    <% end %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
