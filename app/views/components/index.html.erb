@@ -1,0 +1,41 @@
+<h1 class="text-xl font-bold mb-4">Component Library</h1>
+
+<%= form_tag components_path, method: :get, class: "search-bar" do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by name or description...", class: "form-input" %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+
+<% if @components.any? %>
+  <div class="grid grid-3">
+    <% @components.each do |component| %>
+      <div class="card">
+        <div class="flex-between mb-2">
+          <h2 class="text-lg font-bold">
+            <%= link_to component.name, component_path(component) %>
+          </h2>
+          <% if component.version %>
+            <span class="badge"><%= component.version %></span>
+          <% end %>
+        </div>
+        <p class="text-muted mb-4"><%= truncate(component.description, length: 120) %></p>
+        <% if component.preview_url.present? %>
+          <div class="mb-4">
+            <%= image_tag component.preview_url, alt: component.name, style: "max-width:100%; border-radius:0.25rem;" %>
+          </div>
+        <% end %>
+        <div class="flex-between">
+          <% if component.compatibility %>
+            <span class="text-sm text-muted">Compatible: <%= component.compatibility %></span>
+          <% end %>
+          <%= link_to "View Details", component_path(component), class: "btn btn-secondary btn-sm" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= paginate @components %>
+<% else %>
+  <div class="card">
+    <p class="text-muted">No components found.</p>
+  </div>
+<% end %>

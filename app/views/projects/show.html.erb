@@ -1,0 +1,302 @@
+<%= link_to "← Back to Projects", projects_path, class: "btn btn-secondary btn-sm mb-4" %>
+
+<div class="flex-between mb-6">
+  <div>
+    <h1 class="text-xl font-bold"><%= @project.name %></h1>
+    <p class="text-muted"><%= @project.description %></p>
+  </div>
+  <div>
+    <span id="project-component-count" class="badge badge-success"><%= @project_components.count %> components</span>
+  </div>
+</div>
+
+<div class="dashboard-layout">
+  <div>
+    <h2 class="text-lg font-bold mb-4">Organized Components</h2>
+    <div id="components-container" data-project-id="<%= @project.id %>">
+      <% grouped = @project_components.group_by { |pc| pc.component_group_id } %>
+      <% grouped.each do |group_id, items| %>
+        <% if group_id && (group = @project.component_groups.find { |g| g.id == group_id }) %>
+          <div class="group-section" data-group-id="<%= group.id %>">
+            <div class="group-header flex-between">
+              <span class="group-name-label"><%= group.name %></span>
+              <button class="btn btn-danger btn-sm delete-group-btn" data-group-id="<%= group.id %>">Delete Group</button>
+            </div>
+            <% items.each do |pc| %>
+              <%= render partial: "component_card", locals: { pc: pc, group_id: group.id } %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="group-section" data-group-id="">
+            <div class="group-header">Ungrouped</div>
+            <% items.each do |pc| %>
+              <%= render partial: "component_card", locals: { pc: pc, group_id: "" } %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      <% if @project_components.none? %>
+        <div id="empty-state" class="card"><p class="text-muted">No components added yet.</p></div>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <div class="card mb-4">
+      <h3 class="font-bold mb-2">Add Component</h3>
+      <% if @available_components.any? %>
+        <div class="form-group">
+          <label class="form-label">Select Component</label>
+          <select id="add-component-select" class="form-select">
+            <option value="">Choose a component...</option>
+            <% @available_components.each do |c| %>
+              <option value="<%= c.id %>" data-name="<%= c.name %>" data-version="<%= c.version %>"><%= c.name %></option>
+            <% end %>
+          </select>
+        </div>
+        <% if @component_groups.any? %>
+          <div class="form-group">
+            <label class="form-label">Group (optional)</label>
+            <select id="add-component-group" class="form-select">
+              <option value="">No group</option>
+              <% @component_groups.each do |g| %>
+                <option value="<%= g.id %>"><%= g.name %></option>
+              <% end %>
+            </select>
+          </div>
+        <% end %>
+        <button id="add-component-btn" class="btn btn-primary" style="width:100%;">Add to Project</button>
+      <% else %>
+        <p class="text-muted">All components have been added.</p>
+      <% end %>
+    </div>
+    <div class="card mb-4">
+      <h3 class="font-bold mb-2">Create Group</h3>
+      <div class="form-group">
+        <label class="form-label">Group Name</label>
+        <input type="text" id="new-group-name" class="form-input" placeholder="e.g. UI Kit">
+      </div>
+      <button id="create-group-btn" class="btn btn-primary" style="width:100%;">Create Group</button>
+      <div id="create-group-result" class="mt-4" style="display:none;"></div>
+    </div>
+    <div class="card">
+      <h3 class="font-bold mb-2">Assign Group</h3>
+      <div class="form-group">
+        <label class="form-label">Component</label>
+        <select id="assign-component-select" class="form-select">
+          <option value="">Choose component...</option>
+          <% @project_components.each do |pc| %>
+            <option value="<%= pc.id %>"><%= pc.component.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Group</label>
+        <select id="assign-group-select" class="form-select">
+          <option value="">No group</option>
+          <% @component_groups.each do |g| %>
+            <option value="<%= g.id %>"><%= g.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <button id="assign-group-btn" class="btn btn-primary" style="width:100%;">Assign Group</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var projectId = document.getElementById('components-container').getAttribute('data-project-id');
+  var csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+  function api(method, url, body) {
+    return fetch(url, {
+      method: method,
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf, 'Accept': 'application/json' },
+      body: body ? JSON.stringify(body) : undefined
+    }).then(function(r) { if (!r.ok) throw new Error('Failed'); return r.json(); });
+  }
+
+  function updateCount(count) {
+    var el = document.getElementById('project-component-count');
+    if (el) el.textContent = count + ' components';
+    var empty = document.getElementById('empty-state');
+    if (count === 0 && !empty) {
+      var d = document.createElement('div'); d.id = 'empty-state'; d.className = 'card';
+      d.innerHTML = '<p class="text-muted">No components added yet.</p>';
+      document.getElementById('components-container').appendChild(d);
+    } else if (count > 0 && empty) empty.remove();
+  }
+
+  function buildCard(pcId, name, version, groupId) {
+    var div = document.createElement('div');
+    div.className = 'card flex-between drag-item';
+    div.setAttribute('data-pc-id', pcId);
+    div.setAttribute('data-group-id', groupId || '');
+    div.setAttribute('draggable', 'true');
+    div.innerHTML = '<div class="flex flex-gap"><span class="drag-handle">☰</span>' +
+      '<div><strong>' + name + '</strong>' + (version ? ' <span class="badge">' + version + '</span>' : '') +
+      '</div></div>' +
+      '<button class="btn btn-danger btn-sm remove-component-btn" data-pc-id="' + pcId + '">Remove</button>';
+    return div;
+  }
+
+  function getGroupSection(groupId) {
+    return document.querySelector('.group-section[data-group-id="' + (groupId || '') + '"]');
+  }
+
+  // Add component
+  var addBtn = document.getElementById('add-component-btn');
+  if (addBtn) {
+    addBtn.addEventListener('click', function() {
+      var sel = document.getElementById('add-component-select');
+      if (!sel.value) return;
+      var body = { component_id: sel.value };
+      var grp = document.getElementById('add-component-group');
+      if (grp && grp.value) body.component_group_id = grp.value;
+      api('POST', '/projects/' + projectId + '/project_components.json', body).then(function(data) {
+        updateCount(data.count);
+        var section = getGroupSection(data.component_group_id);
+        if (!section) {
+          section = document.createElement('div');
+          section.className = 'group-section';
+          section.setAttribute('data-group-id', data.component_group_id || '');
+          var h = '';
+          if (data.component_group_id) {
+            h = '<div class="group-header flex-between"><span class="group-name-label">' + data.group_name +
+              '</span><button class="btn btn-danger btn-sm delete-group-btn" data-group-id="' + data.component_group_id + '">Delete Group</button></div>';
+          } else {
+            h = '<div class="group-header">Ungrouped</div>';
+          }
+          section.innerHTML = h;
+          document.getElementById('components-container').appendChild(section);
+        }
+        var card = buildCard(data.id, data.component.name, data.component.version, data.component_group_id);
+        section.appendChild(card);
+        sel.value = '';
+        if (grp) grp.value = '';
+      });
+    });
+  }
+
+  // Remove component
+  document.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('remove-component-btn')) return;
+    var pcId = e.target.getAttribute('data-pc-id');
+    api('DELETE', '/projects/' + projectId + '/project_components/' + pcId + '.json', null).then(function(data) {
+      updateCount(data.count);
+      var item = document.querySelector('.drag-item[data-pc-id="' + pcId + '"]');
+      if (item) {
+        var section = item.closest('.group-section');
+        item.remove();
+        if (section && section.querySelectorAll('.drag-item').length === 0) section.remove();
+      }
+    });
+  });
+
+  // Create group
+  var createGroupBtn = document.getElementById('create-group-btn');
+  if (createGroupBtn) {
+    createGroupBtn.addEventListener('click', function() {
+      var name = document.getElementById('new-group-name').value.trim();
+      if (!name) return;
+      api('POST', '/projects/' + projectId + '/component_groups.json', { name: name }).then(function(data) {
+        document.getElementById('new-group-name').value = '';
+        ['add-component-group', 'assign-group-select'].forEach(function(sid) {
+          var s = document.getElementById(sid);
+          if (s) { var o = document.createElement('option'); o.value = data.id; o.textContent = data.name; s.appendChild(o); }
+        });
+        var res = document.getElementById('create-group-result');
+        res.style.display = 'block';
+        res.innerHTML = '<div class="notice">Group "' + data.name + '" created.</div>';
+      });
+    });
+  }
+
+  // Assign group
+  var assignBtn = document.getElementById('assign-group-btn');
+  if (assignBtn) {
+    assignBtn.addEventListener('click', function() {
+      var pcId = document.getElementById('assign-component-select').value;
+      var groupId = document.getElementById('assign-group-select').value;
+      if (!pcId) return;
+      api('PATCH', '/projects/' + projectId + '/project_components/' + pcId + '.json',
+           { component_group_id: groupId || null }).then(function(data) {
+        var item = document.querySelector('.drag-item[data-pc-id="' + pcId + '"]');
+        if (!item) return;
+        var oldSection = item.closest('.group-section');
+        item.setAttribute('data-group-id', data.component_group_id || '');
+        var targetSection = getGroupSection(data.component_group_id);
+        if (!targetSection) {
+          targetSection = document.createElement('div');
+          targetSection.className = 'group-section';
+          targetSection.setAttribute('data-group-id', data.component_group_id || '');
+          targetSection.innerHTML = '<div class="group-header">' + (data.group_name || 'Ungrouped') + '</div>';
+          document.getElementById('components-container').appendChild(targetSection);
+        }
+        targetSection.appendChild(item);
+        if (oldSection && oldSection.querySelectorAll('.drag-item').length === 0) oldSection.remove();
+      });
+    });
+  }
+
+  // Delete group
+  document.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('delete-group-btn')) return;
+    var groupId = e.target.getAttribute('data-group-id');
+    if (!confirm('Delete this group? Components become ungrouped.')) return;
+    api('DELETE', '/projects/' + projectId + '/component_groups/' + groupId + '.json', null).then(function() {
+      var section = document.querySelector('.group-section[data-group-id="' + groupId + '"]');
+      if (!section) return;
+      var items = section.querySelectorAll('.drag-item');
+      var ungrouped = getGroupSection('');
+      if (!ungrouped) {
+        ungrouped = document.createElement('div');
+        ungrouped.className = 'group-section';
+        ungrouped.setAttribute('data-group-id', '');
+        ungrouped.innerHTML = '<div class="group-header">Ungrouped</div>';
+        document.getElementById('components-container').appendChild(ungrouped);
+      }
+      items.forEach(function(it) { it.setAttribute('data-group-id', ''); ungrouped.appendChild(it); });
+      section.remove();
+      ['add-component-group', 'assign-group-select'].forEach(function(sid) {
+        var s = document.getElementById(sid);
+        if (s) { var o = s.querySelector('option[value="' + groupId + '"]'); if (o) o.remove(); }
+      });
+    });
+  });
+
+  // Drag and drop
+  var dragSrc = null;
+  document.addEventListener('dragstart', function(e) {
+    var item = e.target.closest('.drag-item');
+    if (!item) return;
+    dragSrc = item;
+    item.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  document.addEventListener('dragend', function(e) {
+    var item = e.target.closest('.drag-item');
+    if (item) item.classList.remove('dragging');
+    dragSrc = null;
+  });
+  document.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    var item = e.target.closest('.drag-item');
+    if (!item || !dragSrc || item === dragSrc) return;
+    e.dataTransfer.dropEffect = 'move';
+  });
+  document.addEventListener('drop', function(e) {
+    e.preventDefault();
+    var target = e.target.closest('.drag-item');
+    if (!target || !dragSrc || target === dragSrc) return;
+    var container = target.parentNode;
+    var rect = target.getBoundingClientRect();
+    container.insertBefore(dragSrc, e.clientY > rect.top + rect.height / 2 ? target.nextSibling : target);
+    var positions = [];
+    document.querySelectorAll('.drag-item').forEach(function(it, idx) {
+      positions.push({ id: it.getAttribute('data-pc-id'), position: idx });
+    });
+    api('PATCH', '/projects/' + projectId + '/project_components/reorder.json', { positions: positions }, function() {});
+  });
+})();
+</script>

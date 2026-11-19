@@ -1,0 +1,99 @@
+<div class="flex-between mb-6">
+  <div>
+    <%= link_to "← Back to Components", components_path, class: "btn btn-secondary btn-sm" %>
+  </div>
+</div>
+
+<div class="card mb-6">
+  <div class="flex-between mb-4">
+    <h1 class="text-xl font-bold"><%= @component.name %></h1>
+    <% if @component.version %>
+      <span class="badge"><%= @component.version %></span>
+    <% end %>
+  </div>
+
+  <p class="mb-4"><%= @component.description %></p>
+
+  <% if @component.preview_url.present? %>
+    <div class="mb-4">
+      <%= image_tag @component.preview_url, alt: @component.name, style: "max-width:100%; border-radius:0.25rem;" %>
+    </div>
+  <% end %>
+
+  <dl class="metadata-list">
+    <dt>Version</dt>
+    <dd><%= @component.version || "N/A" %></dd>
+    <dt>Compatibility</dt>
+    <dd><%= @component.compatibility || "N/A" %></dd>
+    <dt>Dependencies</dt>
+    <dd>
+      <% deps = @component.dependencies %>
+      <% if deps.is_a?(Array) && deps.any? %>
+        <div class="tag-list">
+          <% deps.each do |dep| %>
+            <span class="tag"><%= dep %></span>
+          <% end %>
+        </div>
+      <% else %>
+        None
+      <% end %>
+    </dd>
+  </dl>
+</div>
+
+<div class="card">
+  <h2 class="text-lg font-bold mb-4">Add to Project</h2>
+  <% if @projects.any? %>
+    <div class="flex flex-gap flex-wrap">
+      <% @projects.each do |project| %>
+        <button class="btn btn-primary btn-sm add-to-project-btn"
+                data-project-id="<%= project.id %>"
+                data-component-id="<%= @component.id %>"
+                data-project-name="<%= project.name %>">
+          Add to <%= project.name %>
+        </button>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">
+      No projects yet. <%= link_to "Create a project first", new_project_path %>.
+    </p>
+  <% end %>
+  <div id="add-result" class="mt-4" style="display:none;"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    document.querySelectorAll('.add-to-project-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var projectId = this.getAttribute('data-project-id');
+        var componentId = this.getAttribute('data-component-id');
+        var projectName = this.getAttribute('data-project-name');
+        var resultEl = document.getElementById('add-result');
+
+        fetch('/projects/' + projectId + '/project_components.json', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken,
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ component_id: componentId })
+        }).then(function(response) {
+          if (!response.ok) throw new Error('Failed');
+          return response.json();
+        }).then(function(data) {
+          resultEl.style.display = 'block';
+          resultEl.innerHTML = '<div class=\"notice\">Component added to ' + projectName + '. Project now has ' + data.count + ' components.</div>';
+          var countEl = document.getElementById('project-' + projectId + '-count');
+          if (countEl) countEl.textContent = data.count;
+        }).catch(function(err) {
+          resultEl.style.display = 'block';
+          resultEl.innerHTML = '<div class=\"notice-danger\">Error adding component.</div>';
+        });
+      });
+    });
+  });
+</script>

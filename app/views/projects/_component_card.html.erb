@@ -1,0 +1,10 @@
+<div class="card flex-between drag-item" data-pc-id="<%= pc.id %>" data-group-id="<%= group_id %>" draggable="true">
+  <div class="flex flex-gap">
+    <span class="drag-handle">☰</span>
+    <div>
+      <strong><%= pc.component.name %></strong>
+      <% if pc.component.version %><span class="badge"><%= pc.component.version %></span><% end %>
+    </div>
+  </div>
+  <button class="btn btn-danger btn-sm remove-component-btn" data-pc-id="<%= pc.id %>">Remove</button>
+</div>

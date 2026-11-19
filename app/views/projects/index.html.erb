@@ -1,0 +1,27 @@
+<div class="flex-between mb-6">
+  <h1 class="text-xl font-bold">Projects</h1>
+  <%= link_to "New Project", new_project_path, class: "btn btn-primary" %>
+</div>
+
+<% if @projects.any? %>
+  <div class="grid grid-2">
+    <% @projects.each do |project| %>
+      <div class="card">
+        <h2 class="text-lg font-bold mb-2">
+          <%= link_to project.name, project_path(project) %>
+        </h2>
+        <p class="text-muted mb-4"><%= truncate(project.description, length: 100) %></p>
+        <div class="flex-between">
+          <span id="project-<%= project.id %>-count" class="badge badge-success">
+            <%= project.project_components.count %> components
+          </span>
+          <%= link_to "View Dashboard", project_path(project), class: "btn btn-secondary btn-sm" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="card">
+    <p class="text-muted">No projects yet. Create one to start organizing components.</p>
+  </div>
+<% end %>
