@@ -106,6 +106,7 @@ export default function AdminUsersList() {
           <h1 className="mb-6 text-center text-2xl font-semibold text-brand-text">
             {content.heading}
           </h1>
+          {error && <p className="mb-4 text-sm text-destructive">{error}</p>}
           <form onSubmit={handleLogin} className="flex flex-col gap-4">
             <div>
               <label className="mb-1 block text-sm font-medium text-brand-text" htmlFor="adminToken">
