@@ -7,7 +7,3 @@ gem "pg", "~> 1.5"
 gem "puma", ">= 6.4"
 gem "sidekiq", "~> 7.3"
 gem "redis", ">= 5.0"
-
-group :development, :test do
-  gem "rspec-rails", "~> 7.0"
-end

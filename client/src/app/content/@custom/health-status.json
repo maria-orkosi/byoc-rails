@@ -1,6 +1,0 @@
-{
-  "pageTitle": "System Health",
-  "pageDescription": "View the current health status and uptime of Byoc Rails services.",
-  "endpoint": "/health",
-  "refreshIntervalSeconds": 30
-}
