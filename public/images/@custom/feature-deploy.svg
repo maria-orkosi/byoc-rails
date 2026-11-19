@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0a1a"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <linearGradient id="connectionLine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d419d7" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#908d13" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#d419d7" stop-opacity="0.5"/>
+    </linearGradient>
+    <radialGradient id="glow3" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#908d13" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#908d13" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg2)"/>
+  <rect width="1024" height="1024" fill="url(#glow3)"/>
+
+  <!-- Grid dots pattern -->
+  <g fill="#d419d7" fill-opacity="0.04">
+    <circle cx="64" cy="64" r="2"/><circle cx="192" cy="64" r="2"/>
+    <circle cx="320" cy="64" r="2"/><circle cx="448" cy="64" r="2"/>
+    <circle cx="576" cy="64" r="2"/><circle cx="704" cy="64" r="2"/>
+    <circle cx="832" cy="64" r="2"/><circle cx="960" cy="64" r="2"/>
+    <circle cx="64" cy="192" r="2"/><circle cx="192" cy="192" r="2"/>
+    <circle cx="320" cy="192" r="2"/><circle cx="448" cy="192" r="2"/>
+    <circle cx="576" cy="192" r="2"/><circle cx="704" cy="192" r="2"/>
+    <circle cx="832" cy="192" r="2"/><circle cx="960" cy="192" r="2"/>
+    <circle cx="64" cy="320" r="2"/><circle cx="192" cy="320" r="2"/>
+    <circle cx="320" cy="320" r="2"/><circle cx="448" cy="320" r="2"/>
+    <circle cx="576" cy="320" r="2"/><circle cx="704" cy="320" r="2"/>
+    <circle cx="832" cy="320" r="2"/><circle cx="960" cy="320" r="2"/>
+    <circle cx="64" cy="448" r="2"/><circle cx="192" cy="448" r="2"/>
+    <circle cx="320" cy="448" r="2"/><circle cx="448" cy="448" r="2"/>
+    <circle cx="576" cy="448" r="2"/><circle cx="704" cy="448" r="2"/>
+    <circle cx="832" cy="448" r="2"/><circle cx="960" cy="448" r="2"/>
+    <circle cx="64" cy="576" r="2"/><circle cx="192" cy="576" r="2"/>
+    <circle cx="320" cy="576" r="2"/><circle cx="448" cy="576" r="2"/>
+    <circle cx="576" cy="576" r="2"/><circle cx="704" cy="576" r="2"/>
+    <circle cx="832" cy="576" r="2"/><circle cx="960" cy="576" r="2"/>
+    <circle cx="64" cy="704" r="2"/><circle cx="192" cy="704" r="2"/>
+    <circle cx="320" cy="704" r="2"/><circle cx="448" cy="704" r="2"/>
+    <circle cx="576" cy="704" r="2"/><circle cx="704" cy="704" r="2"/>
+    <circle cx="832" cy="704" r="2"/><circle cx="960" cy="704" r="2"/>
+    <circle cx="64" cy="832" r="2"/><circle cx="192" cy="832" r="2"/>
+    <circle cx="320" cy="832" r="2"/><circle cx="448" cy="832" r="2"/>
+    <circle cx="576" cy="832" r="2"/><circle cx="704" cy="832" r="2"/>
+    <circle cx="832" cy="832" r="2"/><circle cx="960" cy="832" r="2"/>
+    <circle cx="64" cy="960" r="2"/><circle cx="192" cy="960" r="2"/>
+    <circle cx="320" cy="960" r="2"/><circle cx="448" cy="960" r="2"/>
+    <circle cx="576" cy="960" r="2"/><circle cx="704" cy="960" r="2"/>
+    <circle cx="832" cy="960" r="2"/><circle cx="960" cy="960" r="2"/>
+  </g>
+  <!-- Pipeline / conveyor -->
+  <g transform="translate(112, 462)">
+    <rect x="0" y="0" width="800" height="100" rx="50" fill="none" stroke="#d419d7" stroke-width="2" stroke-opacity="0.15"/>
+    <rect x="0" y="0" width="800" height="100" rx="50" fill="#d419d7" fill-opacity="0.03"/>
+  </g>
+
+  <!-- Components moving along pipeline -->
+  <g>
+    <rect x="140" y="472" width="80" height="80" rx="12" fill="none" stroke="#908d13" stroke-width="1.5" stroke-opacity="0.3"/>
+    <rect x="148" y="480" width="64" height="64" rx="8" fill="#908d13" fill-opacity="0.06"/>
+
+    <rect x="240" y="472" width="80" height="80" rx="12" fill="none" stroke="#d419d7" stroke-width="1.5" stroke-opacity="0.3"/>
+    <rect x="248" y="480" width="64" height="64" rx="8" fill="#d419d7" fill-opacity="0.06"/>
+
+    <rect x="340" y="472" width="80" height="80" rx="12" fill="none" stroke="#908d13" stroke-width="1.5" stroke-opacity="0.3"/>
+    <rect x="348" y="480" width="64" height="64" rx="8" fill="#908d13" fill-opacity="0.06"/>
+
+    <rect x="440" y="472" width="80" height="80" rx="12" fill="none" stroke="#d419d7" stroke-width="1.5" stroke-opacity="0.3"/>
+    <rect x="448" y="480" width="64" height="64" rx="8" fill="#d419d7" fill-opacity="0.06"/>
+
+    <rect x="540" y="472" width="80" height="80" rx="12" fill="none" stroke="#908d13" stroke-width="1.5" stroke-opacity="0.3"/>
+    <rect x="548" y="480" width="64" height="64" rx="8" fill="#908d13" fill-opacity="0.06"/>
+
+    <rect x="640" y="472" width="80" height="80" rx="12" fill="none" stroke="#d419d7" stroke-width="1.5" stroke-opacity="0.3"/>
+    <rect x="648" y="480" width="64" height="64" rx="8" fill="#d419d7" fill-opacity="0.06"/>
+
+    <rect x="740" y="472" width="80" height="80" rx="12" fill="none" stroke="#908d13" stroke-width="1.5" stroke-opacity="0.3"/>
+    <rect x="748" y="480" width="64" height="64" rx="8" fill="#908d13" fill-opacity="0.06"/>
+  </g>
+
+  <!-- Source side - code repository icon -->
+  <g transform="translate(370, 290)">
+    <circle cx="0" cy="0" r="60" fill="none" stroke="#d419d7" stroke-width="2" stroke-opacity="0.25"/>
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#908d13" stroke-width="1.5" stroke-opacity="0.2"/>
+    <circle cx="0" cy="0" r="20" fill="#d419d7" fill-opacity="0.06"/>
+    <rect x="-15" y="-8" width="30" height="4" rx="2" fill="#d419d7" opacity="0.4"/>
+    <rect x="-15" y="0" width="30" height="4" rx="2" fill="#908d13" opacity="0.4"/>
+    <rect x="-15" y="8" width="20" height="4" rx="2" fill="#d419d7" opacity="0.3"/>
+  </g>
+
+  <!-- Destination side - servers icon -->
+  <g transform="translate(654, 290)">
+    <circle cx="0" cy="0" r="60" fill="none" stroke="#908d13" stroke-width="2" stroke-opacity="0.25"/>
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#d419d7" stroke-width="1.5" stroke-opacity="0.2"/>
+    <circle cx="0" cy="0" r="20" fill="#908d13" fill-opacity="0.06"/>
+    <rect x="-12" y="-10" width="24" height="6" rx="2" fill="#908d13" opacity="0.4"/>
+    <rect x="-12" y="0" width="24" height="6" rx="2" fill="#d419d7" opacity="0.4"/>
+    <rect x="-12" y="10" width="24" height="6" rx="2" fill="#908d13" opacity="0.4"/>
+  </g>
+
+  <!-- Connecting lines -->
+  <path d="M 370 350 L 370 462" fill="none" stroke="#d419d7" stroke-width="2" stroke-dasharray="4 4" stroke-opacity="0.3"/>
+  <path d="M 654 350 L 654 462" fill="none" stroke="#908d13" stroke-width="2" stroke-dasharray="4 4" stroke-opacity="0.3"/>
+
+  <!-- Arrow indicators -->
+  <g fill="#908d13" fill-opacity="0.2">
+    <polygon points="300,512 310,502 310,522"/>
+    <polygon points="400,512 410,502 410,522"/>
+    <polygon points="500,512 510,502 510,522"/>
+    <polygon points="600,512 610,502 610,522"/>
+    <polygon points="700,512 710,502 710,522"/>
+  </g>
+
+  <!-- BR mark -->
+  <g transform="translate(492, 80)">
+    <rect x="0" y="0" width="40" height="40" rx="8" fill="#d419d7"/>
+    <text x="20" y="28" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="16" font-weight="bold">BR</text>
+  </g>
+
+  <!-- Decorative circles -->
+  <circle cx="80" cy="900" r="140" fill="none" stroke="#908d13" stroke-width="0.5" stroke-opacity="0.05"/>
+  <circle cx="80" cy="900" r="180" fill="none" stroke="#d419d7" stroke-width="0.5" stroke-opacity="0.03"/>
+  <circle cx="944" cy="124" r="100" fill="none" stroke="#d419d7" stroke-width="0.5" stroke-opacity="0.05"/>
+</svg>
