@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require_relative "../config/environment"
+require "rspec/rails"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

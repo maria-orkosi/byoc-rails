@@ -1,4 +1,4 @@
-import HealthStatusPage from "../../pages/static/@custom/health-status";
+import HealthStatusPage from "../../pages/static/@custom/health-status.jsx";
 
 export const customRoutes = [
   {

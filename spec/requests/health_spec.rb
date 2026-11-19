@@ -1,4 +1,4 @@
-require_relative "spec_helper"
+require_relative "../spec_helper"
 
 RSpec.describe "Health Check", type: :request do
   describe "GET /health" do
@@ -88,16 +88,29 @@ RSpec.describe "Health Check", type: :request do
   describe "GET /up" do
     before do
       allow(ActiveRecord::Base.connection).to receive(:active?).and_return(true)
-      allow_any_instance_of(Redis).to receive(:ping).and_return("PONG")
     end
 
-    it "returns HTTP 200 with ok status" do
+    it "returns HTTP 200 with ok status (DB-only liveness check)" do
       get "/up"
 
       expect(response).to have_http_status(:ok)
 
       body = JSON.parse(response.body)
       expect(body["status"]).to eq("ok")
+      expect(body["checks"]["db"]).to eq("ok")
+      expect(body["checks"]).not_to have_key("redis")
+    end
+
+    it "returns HTTP 503 when database is down" do
+      allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false)
+
+      get "/up"
+
+      expect(response).to have_http_status(:service_unavailable)
+
+      body = JSON.parse(response.body)
+      expect(body["status"]).to eq("error")
+      expect(body["checks"]["db"]).to eq("error")
     end
   end
 end
