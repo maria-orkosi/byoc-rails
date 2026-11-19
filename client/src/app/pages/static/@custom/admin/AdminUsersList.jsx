@@ -97,8 +97,12 @@ export default function AdminUsersList() {
   };
 
   const sortIndicator = (column) => {
-    if (sort !== column) return "";
-    return direction === "asc" ? " \u2191" : " \u2193";
+    if (sort !== column) return null;
+    return (
+      <span className="ml-1 inline-block text-brand-primary" aria-label={direction === "asc" ? "sorted ascending" : "sorted descending"}>
+        {direction === "asc" ? "\u2191" : "\u2193"}
+      </span>
+    );
   };
 
   if (!authorized) {
