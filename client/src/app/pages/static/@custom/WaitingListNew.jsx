@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Button from "../../../components/ui/Button.jsx";
 import Input from "../../../components/ui/Input.jsx";
 import content from "../../../content/@custom/waiting-list.json";
@@ -15,7 +15,7 @@ export default function WaitingListNew() {
   /** @type {[SubmitState, (s: SubmitState) => void]} */
   const [submitState, setSubmitState] = useState("idle");
   const [message, setMessage] = useState("");
-  const cooldownRef = useRef(false);
+  const [cooldown, setCooldown] = useState(false);
 
   /** @param {React.ChangeEvent<HTMLInputElement>} e */
   const handleEmailChange = (e) => {
@@ -30,12 +30,12 @@ export default function WaitingListNew() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (cooldownRef.current) return;
+    if (cooldown) return;
 
     setSubmitState("loading");
 
     try {
-      const response = await fetch("/waiting_list", {
+      const response = await fetch("/api/waiting_list", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -55,9 +55,9 @@ export default function WaitingListNew() {
         setEmail("");
 
         // Disable button for cooldown period
-        cooldownRef.current = true;
+        setCooldown(true);
         setTimeout(() => {
-          cooldownRef.current = false;
+          setCooldown(false);
         }, content.submitCooldownMs);
       } else if (response.status === 422) {
         setSubmitState("invalid");
@@ -82,7 +82,7 @@ export default function WaitingListNew() {
           {content.heading}
         </h1>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
           <div>
             <Input
               id="email"
@@ -94,7 +94,7 @@ export default function WaitingListNew() {
             />
           </div>
 
-          <Button type="submit" disabled={submitState === "loading" || cooldownRef.current}>
+          <Button type="submit" disabled={submitState === "loading" || cooldown}>
             {submitState === "loading" ? "Joining..." : content.submitLabel}
           </Button>
         </form>
